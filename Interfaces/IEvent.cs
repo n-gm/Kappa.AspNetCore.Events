@@ -1,4 +1,4 @@
-﻿namespace KappaQueue.Events.Mediator.Interfaces
+﻿namespace Kappa.AspNetCore.Events
 {
     public interface IEvent
     {

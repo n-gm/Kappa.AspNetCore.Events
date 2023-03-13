@@ -1,8 +1,9 @@
-﻿namespace KappaQueue.Events.Mediator.Interfaces
+﻿namespace Kappa.AspNetCore.Events
 {
     public interface IEventDispatcher
     {
-        void Invoke<Event>(Event @event) where Event : IEvent;
-        Task InvokeAsync<Event>(Event @event, CancellationToken token = default) where Event : IEvent;
+        void Dispatch<Event>(Event @event) where Event : IEvent;
+        Task DispatchAsync<Event>(Event @event, CancellationToken token = default) where Event : IEvent;
+        Task DispatchInNewScopeAsync<Event>(Event @event) where Event : IEvent;
     }
 }

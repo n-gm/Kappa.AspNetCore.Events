@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kappa.AspNetCore.Events", "Kappa.AspNetCore.Events.csproj", "{FB7ED9C8-7C7B-45C4-B802-1DDE7A39DB9B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B86F498-CF0A-4FEE-8DFF-0A85BE9E1C6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kappa.AspNetCore.Events.Tests", "..\Tests\Kappa.AspNetCore.Events.Tests\Kappa.AspNetCore.Events.Tests.csproj", "{90BB2DF9-70C2-48A1-9A26-713EC2AA38D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{FB7ED9C8-7C7B-45C4-B802-1DDE7A39DB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB7ED9C8-7C7B-45C4-B802-1DDE7A39DB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB7ED9C8-7C7B-45C4-B802-1DDE7A39DB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90BB2DF9-70C2-48A1-9A26-713EC2AA38D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90BB2DF9-70C2-48A1-9A26-713EC2AA38D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90BB2DF9-70C2-48A1-9A26-713EC2AA38D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90BB2DF9-70C2-48A1-9A26-713EC2AA38D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{90BB2DF9-70C2-48A1-9A26-713EC2AA38D2} = {3B86F498-CF0A-4FEE-8DFF-0A85BE9E1C6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {47C309EF-150E-4868-A9D9-045D2526F953}

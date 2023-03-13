@@ -1,7 +1,8 @@
-﻿using KappaQueue.Events.Mediator.Interfaces;
+﻿using Kappa.AspNetCore.Events.Classes;
 
-namespace KappaQueue.Events.Mediator.Classes
+namespace Kappa.AspNetCore.Events
 {
+
     /// <summary>
     /// Класс с конфигурацией событий приложения
     /// </summary>
@@ -14,16 +15,16 @@ namespace KappaQueue.Events.Mediator.Classes
             _handlers = new();
         }
 
-        public IEnumerable<Type> GetEventTypes()
+        internal IEnumerable<Type> GetEventTypes()
         {
             return _handlers.Keys;
         }
 
-        public IEnumerable<Type> GetHandlerTypes(Type eventType)
+        internal IEnumerable<Type> GetHandlerTypes(Type eventType)
         {
-            if (_handlers.TryGetValue(eventType, out var listeners))
+            if (_handlers.TryGetValue(eventType, out var handlers))
             {
-                return listeners;
+                return handlers;
             }
             else
             {
@@ -31,51 +32,56 @@ namespace KappaQueue.Events.Mediator.Classes
             }
         }
 
-        public IEnumerable<Type> GetHandlerTypes<EventType>() where EventType : IEvent
+        internal IEnumerable<Type> GetHandlerTypes<EventType>() 
+            where EventType : IEvent
         {
             return GetHandlerTypes(typeof(EventType));
         }
 
-        public EventHandlerConfig AddAsyncEventHandler<AsyncEventListenerType, EventType>()
-            where AsyncEventListenerType : IAsyncEventHandler<EventType>
+        public EventHandlerConfig AddAsyncEventHandler<AsyncEventHandlerType, EventType>()
+            where AsyncEventHandlerType : IAsyncEventHandler<EventType>
             where EventType : IEvent
         {
-            if (_handlers.TryGetValue(typeof(EventType), out var listeners))
+            if (_handlers.TryGetValue(typeof(EventType), out var handlers))
             {
-                listeners.Add(typeof(AsyncEventListenerType));
+                handlers.Add(typeof(AsyncEventHandlerType));
             }
             else
             {
-                _handlers.Add(typeof(EventType), new List<Type>() { typeof(AsyncEventListenerType) });
+                _handlers.Add(typeof(EventType), new List<Type>() { typeof(AsyncEventHandlerType) });
             }
 
             return this;
         }
 
-        public EventHandlerConfig AddEventHandler<EventListenerType, EventType>() 
-            where EventListenerType : IEventHandler<EventType>
-            where EventType : IEvent
+        public EventHandlerConfig AddAsyncEventHandler(Type asyncEvent, Type asyncEventHandler)
         {
-            if (_handlers.TryGetValue(typeof(EventType), out var listeners))
+            if (_handlers.TryGetValue(asyncEvent, out var handlers))
             {
-                listeners.Add(typeof(EventListenerType));
+                handlers.Add(asyncEventHandler);
             }
             else
             {
-                _handlers.Add(typeof(EventType), new List<Type>() { typeof(EventListenerType) });
+                _handlers.Add(asyncEvent, new List<Type>() { asyncEventHandler });
             }
 
             return this;
         }
 
-        public EventHandlerConfig AddEventHandler<EventType>(IEventHandler<EventType> eventListener) where EventType : IEvent
+        public EventHandlerConfig AddEventHandler<EventHandlerType, EventType>()
+            where EventHandlerType : IEventHandler<EventType>
+            where EventType : IEvent
         {
-            return AddEventHandler<IEventHandler<EventType>, EventType>();
-        }
+            if (_handlers.TryGetValue(typeof(EventType), out var handlers))
+            {
+                handlers.Add(typeof(EventHandlerType));
+            }
+            else
+            {
+                _handlers.Add(typeof(EventType), new List<Type>() { typeof(EventHandlerType) });
+            }
 
-        public EventHandlerConfig AddEventHandler<EventType>(IAsyncEventHandler<EventType> eventListener) where EventType : IEvent
-        {
-            return AddAsyncEventHandler<IAsyncEventHandler<EventType>, EventType>();
-        }        
+            return this;
+        }
     }
 }
