@@ -1,10 +1,8 @@
-﻿using Kappa.AspNetCore.Events.Classes;
-
-namespace Kappa.AspNetCore.Events
+﻿namespace Kappa.AspNetCore.Events
 {
 
     /// <summary>
-    /// Класс с конфигурацией событий приложения
+    /// Configuration for Events and Handlers.
     /// </summary>
     public class EventHandlerConfig
     {
